@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { uniqueId } from 'lodash'
-import filesize from 'filesize'
+import { filesize } from 'filesize'
 
 import api from './services/api'
 
@@ -107,7 +107,7 @@ class App extends Component {
       <Container>
         <ContainerName>
           <h1>Upload de imagens</h1>
-          <span style={{ fontSize: 13 }}>(máximo de 5mb)</span>
+          <span style={{ fontSize: 13 }}>(máximo de 15mb)</span>
         </ContainerName>
         <Content>
           <Upload onUpload={this.handleUpload} />
