@@ -53,14 +53,6 @@ export default function App() {
   //   });
   // }
 
-  // handleDelete = async (id) => {
-  //   await api.delete(`/posts/${id}`);
-
-  //   this.setState({
-  //     uploadedFiles: this.state.uploadedFiles.filter((file) => file.id !== id),
-  //   });
-  // };
-
   // // Apagar o cache da aplicação nos preview da imagem
   // componentWillUnmount() {
   //   this.state.uploadedFiles.forEach((file) =>
@@ -82,7 +74,6 @@ export default function App() {
     }));
 
     setUploadedPhotos(uploadedPhotos.concat(uploadedFiles));
-    console.log('adicionando foto', uploadedPhotos);
 
     uploadedFiles.forEach(processUpload);
   };
@@ -120,6 +111,12 @@ export default function App() {
       });
   };
 
+  const handleDelete = async (id) => {
+    await api.delete(`/posts/${id}`);
+
+    setUploadedPhotos(uploadedPhotos.filter((file) => file.id !== id));
+  };
+
   const renderDragMessage = (isDragActive, isDragReject) => {
     if (!isDragActive) {
       return <UploadMessage>Arraste arquivos aqui...</UploadMessage>;
@@ -149,7 +146,7 @@ export default function App() {
           {renderDragMessage(isDragActive, isDragReject)}
         </DropContainer>
         {!!uploadedPhotos.length && (
-          <FileList files={uploadedPhotos} onDelete={() => {}} />
+          <FileList files={uploadedPhotos} onDelete={handleDelete} />
         )}
       </Content>
       <GlobalStyle />

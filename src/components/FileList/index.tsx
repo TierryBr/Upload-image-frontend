@@ -1,16 +1,10 @@
 import React from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import { MdCheckCircle, MdError, MdLink } from 'react-icons/md';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { Container, FileInfo, Preview } from './styles';
 
 const FileList = ({ files, onDelete }) => {
-  const { photos } = useSelector((state: any) => state.reducerPhotos);
-
-  // console.log('file', files);
-  // console.log('photos', photos);
-
   return (
     <Container>
       {files &&
