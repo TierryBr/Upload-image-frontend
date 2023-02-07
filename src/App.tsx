@@ -1,7 +1,7 @@
-import React, { Component, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { uniqueId } from 'lodash';
 import { filesize } from 'filesize';
-import Dropzone, { useDropzone } from 'react-dropzone';
+import { useDropzone } from 'react-dropzone';
 
 import api from './services/api';
 
@@ -14,14 +14,11 @@ import {
   UploadMessage,
 } from './styles';
 
-import { Upload } from './components/Upload';
 import FileList from './components/FileList';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 export default function App() {
   const [uploadedPhotos, setUploadedPhotos] = useState([]);
-  const { photos } = useSelector((state: any) => state.reducerPhotos);
 
   const {
     getRootProps,
@@ -35,32 +32,32 @@ export default function App() {
     accept: {
       'image/*': [],
     },
-    onDropAccepted: (file) => addPhotoInRedux(file),
+    onDropAccepted: (file) => addPhotoInArray(file),
   });
 
-  // async componentDidMount() {
-  //   const response = await api.get('posts');
+  useEffect(() => {
+    async function loadPhotos() {
+      const response = await api.get('posts');
 
-  //   this.setState({
-  //     uploadedFiles: response.data.map((file) => ({
-  //       id: file._id,
-  //       name: file.name,
-  //       readableSize: filesize(file.size),
-  //       preview: file.url,
-  //       uploaded: true,
-  //       url: file.url,
-  //     })),
-  //   });
-  // }
+      setUploadedPhotos(
+        response.data.map((file) => ({
+          id: file._id,
+          name: file.name,
+          readableSize: filesize(file.size),
+          preview: file.url,
+          uploaded: true,
+          url: file.url,
+        }))
+      );
+    }
+    loadPhotos();
 
-  // // Apagar o cache da aplicação nos preview da imagem
-  // componentWillUnmount() {
-  //   this.state.uploadedFiles.forEach((file) =>
-  //     URL.revokeObjectURL(file.preview)
-  //   );
-  // }
+    return () => {
+      uploadedPhotos.forEach((file) => URL.revokeObjectURL(file.preview));
+    };
+  }, [uploadedPhotos]);
 
-  const addPhotoInRedux = (file) => {
+  const addPhotoInArray = (file) => {
     const uploadedFiles = file.map((file) => ({
       file,
       id: uniqueId(),
@@ -92,7 +89,9 @@ export default function App() {
     api
       .post('/posts', data, {
         onUploadProgress: (e) => {
-          const progress = parseInt(Math.round((e.loaded * 100) / e.total));
+          const progress = parseInt(
+            Math.round((e.loaded * 100) / e.total) as any
+          );
 
           updateFile(uploadedFile.id, { progress });
         },
