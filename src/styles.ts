@@ -1,32 +1,5 @@
 import styled, {css} from 'styled-components';
 
-export const Container = styled.div`
-  margin-top: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
-
-export const Content = styled.div`
-    width: 100%;
-    max-width: 400px;
-    margin: 30px;
-    background: #fff;
-    border-radius: 4px;
-    padding: 20px;
-`;
-
-export const ContainerName = styled.div`
-    font-size: 17px;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 100px
-`;
-
 const dragActive = css`
     border-color: #78e5d5;
 `;
@@ -38,7 +11,7 @@ const dragReject = css`
 export const DropContainer = styled.div.attrs({
     className: "dropzone"
 })`
-    border: 1px dashed #ddd;
+    border: 2px dashed #ddd;
     border-radius: 4px;
     cursor: pointer;
 

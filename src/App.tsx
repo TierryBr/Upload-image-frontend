@@ -5,14 +5,9 @@ import { useDropzone } from 'react-dropzone';
 
 import api from './services/api';
 
-import GlobalStyle from './styles/global';
-import {
-  Container,
-  Content,
-  ContainerName,
-  DropContainer,
-  UploadMessage,
-} from './styles';
+import './styles/main.css';
+
+import { DropContainer, UploadMessage } from './styles';
 
 import FileList from './components/FileList';
 import { useState } from 'react';
@@ -129,12 +124,12 @@ export default function App() {
   };
 
   return (
-    <Container>
-      <ContainerName>
+    <div className="flex justify-center flex-col items-center">
+      <div className="text-white font-medium text-3xl	text-center p-10">
         <h1>Upload de imagens</h1>
         <span style={{ fontSize: 13 }}>(máximo de 15mb)</span>
-      </ContainerName>
-      <Content>
+      </div>
+      <div className="w-1/3 h-52 bg-white rounded-lg p-2">
         <DropContainer
           {...getRootProps()}
           isDragActive={isDragActive}
@@ -147,8 +142,7 @@ export default function App() {
         {!!uploadedPhotos.length && (
           <FileList files={uploadedPhotos} onDelete={handleDelete} />
         )}
-      </Content>
-      <GlobalStyle />
-    </Container>
+      </div>
+    </div>
   );
 }

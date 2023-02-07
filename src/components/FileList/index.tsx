@@ -2,7 +2,7 @@ import React from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import { MdCheckCircle, MdError, MdLink } from 'react-icons/md';
 
-import { Container, FileInfo, Preview } from './styles';
+import { Container, Preview } from './styles';
 
 const FileList = ({ files, onDelete }) => {
   return (
@@ -10,21 +10,24 @@ const FileList = ({ files, onDelete }) => {
       {files &&
         files.map((uploadedFile) => (
           <li key={uploadedFile.id}>
-            <FileInfo>
+            <div className="flex items-center">
               <Preview src={uploadedFile.preview} />
-              <div>
+              <div className="flex flex-col">
                 <strong>{uploadedFile.name.substr(-35)}</strong>
-                <span>
+                <span className="text-sm text-gray-500">
                   {uploadedFile.readableSize}{' '}
                   {!!uploadedFile.url && (
-                    <button onClick={() => onDelete(uploadedFile.id)}>
+                    <button
+                      className="text-sm text-red-500 mx-3"
+                      onClick={() => onDelete(uploadedFile.id)}
+                    >
                       Excluir
                     </button>
                   )}
                 </span>
               </div>
-            </FileInfo>
-            <div>
+            </div>
+            <div className="flex flex-row">
               {!uploadedFile.uploaded && !uploadedFile.error && (
                 <CircularProgressbar
                   styles={{
