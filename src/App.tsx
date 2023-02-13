@@ -42,6 +42,7 @@ export default function App() {
           preview: file.url,
           uploaded: true,
           url: file.url,
+          favorite: false,
         }))
       );
     }
@@ -50,7 +51,7 @@ export default function App() {
     return () => {
       uploadedPhotos.forEach((file) => URL.revokeObjectURL(file.preview));
     };
-  }, [uploadedPhotos]);
+  }, []);
 
   const addPhotoInArray = (file) => {
     const uploadedFiles = file.map((file) => ({
