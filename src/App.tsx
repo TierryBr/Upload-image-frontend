@@ -63,6 +63,7 @@ export default function App() {
       uploaded: false,
       error: false,
       url: null,
+      favorite: false,
     }));
 
     setUploadedPhotos(uploadedPhotos.concat(uploadedFiles));
@@ -129,7 +130,7 @@ export default function App() {
         <h1>Upload de imagens</h1>
         <span style={{ fontSize: 13 }}>(máximo de 15mb)</span>
       </div>
-      <div className="w-1/3 h-52 bg-white rounded-lg p-2">
+      <div className="w-1/3 h-auto bg-white rounded-lg p-2">
         <DropContainer
           {...getRootProps()}
           isDragActive={isDragActive}
